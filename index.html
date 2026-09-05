@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>LAST BULLET: Cyber Arena</title>
+
 <!-- Official CrazyGames SDK v3 -->
 <script src="https://sdk.crazygames.com/crazygames-sdk-v3.js"></script>
 
-<!-- Adsterra Scripts (Head Placement) -->
+<!-- Adsterra Scripts (Script 1 & Script 2) -->
 <script src="https://pl29195243.profitableratecpmnetwork.com/3a/e5/de/3ae5de541a80eb8cdbe4e7169880083f.js"></script>
 <script src="https://pl29206662.profitableratecpmnetwork.com/1a/e1/35/1ae135a1877c30e4b4958e2e025f82f3.js"></script>
-<script async="async" data-cfasync="false" src="https://pl28547402.profitableratecpmnetwork.com/96c0e3d67ffd967d125cf1ceee43420a/invoke.js"></script>
 
 <style>
   :root {
@@ -162,7 +162,6 @@
   .hangar-card.locked { opacity: 0.6; }
   .hangar-card h4 { font-size: 12px; color: #fff; font-family: var(--font-mono); margin-bottom: 4px; }
   .hangar-card p { font-size: 9px; color: #94a3b8; line-height: 1.3; }
-  .hangar-btn { margin-top: 8px; padding: 4px 8px; font-size: 10px; font-weight: bold; font-family: var(--font-mono); border-radius: 3px; cursor: pointer; }
 
   /* Shop Grid */
   .shop-grid { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; max-height: 42vh; overflow-y: auto; }
@@ -181,16 +180,6 @@
   }
   .shop-buy-btn.maxed { background: rgba(255, 255, 255, 0.05); border-color: #64748b; color: #64748b; cursor: not-allowed; }
 
-  /* Upgrades */
-  .upgrade-grid { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
-  .upgrade-card {
-    background: rgba(0, 240, 255, 0.04); border: 1px solid rgba(0, 240, 255, 0.25);
-    padding: 12px; border-radius: 6px; text-align: left; cursor: pointer;
-  }
-  .upgrade-card:hover { background: rgba(0, 240, 255, 0.12); border-color: var(--primary); }
-  .upgrade-name { font-size: 13px; font-weight: 700; color: var(--primary); font-family: var(--font-mono); }
-  .upgrade-desc { font-size: 11px; color: #cbd5e1; }
-
   /* Mobile Controls */
   #mobile-controls { position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; pointer-events: none; display: none; z-index: 50; }
   .touch-zone { position: absolute; bottom: 20px; width: 110px; height: 110px; border-radius: 50%; background: rgba(255, 255, 255, 0.03); border: 2px dashed rgba(0, 240, 255, 0.3); pointer-events: auto; }
@@ -200,6 +189,16 @@
   .mobile-action-btn { position: absolute; border-radius: 50%; color: #fff; font-family: var(--font-mono); font-weight: bold; display: flex; justify-content: center; align-items: center; pointer-events: auto; }
   #btn-mobile-shoot { bottom: 145px; right: 25px; width: 70px; height: 70px; background: rgba(0, 240, 255, 0.25); border: 2px solid var(--primary); font-size: 11px; }
   #btn-mobile-bullet-time { bottom: 145px; left: 25px; width: 60px; height: 60px; background: rgba(112, 0, 255, 0.25); border: 2px solid #7000ff; font-size: 10px; }
+
+  /* Ad Banner Overlay Positioning */
+  #ad-banner-placement {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 90;
+    pointer-events: auto;
+  }
 </style>
 </head>
 <body>
@@ -222,7 +221,7 @@
           <div id="bullet-indicator" class="bullet-indicator"></div>
           <span id="bullet-text" style="color:var(--primary);">READY [SPACE]</span>
         </div>
-        <span id="shield-status-text" style="color:var(--shield); font-size:9px;">SHIELD: CHARGING</span>
+        <span id="shield-status-text" style="color:var(--shield); font-size:9px;">SHIELD: ACTIVE</span>
       </div>
     </div>
 
@@ -302,15 +301,6 @@
     </div>
   </div>
 
-  <!-- Upgrade Modal -->
-  <div id="upgrade-modal" class="modal-overlay hidden">
-    <div class="modal-content">
-      <h2 style="color:var(--gold); font-family:var(--font-mono); margin-bottom:4px;">WAVE AUGMENTATION</h2>
-      <p class="subtitle">SELECT TACTICAL UPGRADE</p>
-      <div class="upgrade-grid" id="upgrade-options-container"></div>
-    </div>
-  </div>
-
   <!-- Pause Modal -->
   <div id="pause-modal" class="modal-overlay hidden">
     <div class="modal-content">
@@ -351,8 +341,11 @@
   </div>
 </div>
 
-<!-- Adsterra Container -->
-<div id="container-96c0e3d67ffd967d125cf1ceee43420a"></div>
+<!-- Adsterra Container & Script 3 (Banner / Native invoke placement) -->
+<div id="ad-banner-placement">
+  <script async="async" data-cfasync="false" src="https://pl28547402.profitableratecpmnetwork.com/96c0e3d67ffd967d125cf1ceee43420a/invoke.js"></script>
+  <div id="container-96c0e3d67ffd967d125cf1ceee43420a"></div>
+</div>
 
 <script>
 /**
@@ -377,17 +370,6 @@ const CG = {
   loadingStop() { if (this.isAvailable) try { this.sdk.game.loadingStop(); } catch(e){} },
   gameplayStart() { if (this.isAvailable) try { this.sdk.game.gameplayStart(); } catch(e){} },
   gameplayStop() { if (this.isAvailable) try { this.sdk.game.gameplayStop(); } catch(e){} },
-  async requestMidroll(onComplete) {
-    if (!this.isAvailable) { onComplete(); return; }
-    Audio.pauseBGM();
-    try {
-      await this.sdk.ad.requestAd('midroll', {
-        adStarted: () => Audio.pauseBGM(),
-        adFinished: () => { Audio.resumeBGM(); onComplete(); },
-        adError: () => { Audio.resumeBGM(); onComplete(); }
-      });
-    } catch(e) { Audio.resumeBGM(); onComplete(); }
-  },
   async requestRewarded(onSuccess, onFail) {
     if (!this.isAvailable) { onSuccess(); return; }
     Audio.pauseBGM();
@@ -505,13 +487,10 @@ class SynthwaveAudioEngine {
   playEnemyHit() { this.playTone(300, 'triangle', 0.06, 80, 0.3); }
   playEnemyExplode() { this.playTone(160, 'square', 0.22, 25, 0.45); }
   playPlayerHit() { this.playTone(140, 'sawtooth', 0.3, 40, 0.6); }
-  playReload() { this.playTone(440, 'sine', 0.07, 950, 0.25); }
   playBulletTime() { this.playTone(220, 'sine', 0.35, 60, 0.3); }
-  playBossSpawn() { this.playTone(100, 'sawtooth', 0.8, 30, 0.65); }
   playShieldActivated() { this.playTone(340, 'sine', 0.12, 680, 0.35); }
   playShieldBroken() { this.playTone(550, 'sawtooth', 0.18, 60, 0.45); }
   playPowerup() { this.playTone(523, 'sine', 0.1, 1046, 0.35); }
-  playCoin() { this.playTone(987, 'sine', 0.06, 1318, 0.2); }
 }
 
 const Audio = new SynthwaveAudioEngine();
@@ -528,16 +507,12 @@ const Storage = {
 
 const MetaShop = {
   credits: Storage.get('credits', 0),
-  upgrades: Storage.get('meta_upgrades', { hull: 0, chrono: 0, shield: 0, kinetic: 0, magnet: 0 }),
+  upgrades: Storage.get('meta_upgrades', { hull: 0, chrono: 0, shield: 0, kinetic: 0 }),
   costs: [100, 250, 500, 1000, 2000],
-  selectedShip: Storage.get('selected_ship', 'VALKYRIE'),
-  unlockedShips: Storage.get('unlocked_ships', ['VALKYRIE']),
   
   save() {
     Storage.set('credits', this.credits);
     Storage.set('meta_upgrades', this.upgrades);
-    Storage.set('selected_ship', this.selectedShip);
-    Storage.set('unlocked_ships', this.unlockedShips);
   },
 
   buy(track) {
@@ -552,33 +527,20 @@ const MetaShop = {
       return true;
     }
     return false;
-  },
-
-  buyShip(shipId, cost) {
-    if (this.credits >= cost && !this.unlockedShips.includes(shipId)) {
-      this.credits -= cost;
-      this.unlockedShips.push(shipId);
-      this.selectedShip = shipId;
-      this.save();
-      Audio.playPowerup();
-      return true;
-    }
-    return false;
   }
 };
 
-// ================= SECTOR THEMES =================
 const SECTORS = [
-  { name: 'CYBER HANGAR', color: '#00f0ff', gridAlpha: 0.04, bgGrad: '#0a111e' },
-  { name: 'CRIMSON FOUNDRY', color: '#ff3300', gridAlpha: 0.06, bgGrad: '#1a0808' },
-  { name: 'VOID MATRIX', color: '#bf00ff', gridAlpha: 0.05, bgGrad: '#12051c' }
+  { name: 'CYBER HANGAR', color: '#00f0ff', bgGrad: '#0a111e' },
+  { name: 'CRIMSON FOUNDRY', color: '#ff3300', bgGrad: '#1a0808' },
+  { name: 'VOID MATRIX', color: '#bf00ff', bgGrad: '#12051c' }
 ];
 
 // ================= VIEWPORT AUTO-RESIZING =================
 const Canvas = document.getElementById('gameCanvas');
 const Ctx = Canvas.getContext('2d', { alpha: false });
 
-const STATES = { MENU: 0, PLAYING: 1, PAUSED: 2, UPGRADE: 3, GAMEOVER: 4, SHOP: 5, HANGAR: 6 };
+const STATES = { MENU: 0, PLAYING: 1, PAUSED: 2, GAMEOVER: 4 };
 let currentGameState = STATES.MENU;
 
 let ViewWidth = window.innerWidth;
@@ -689,9 +651,9 @@ const Input = {
   }
 };
 
-// ================= PARTICLES & TEXT =================
+// ================= PARTICLES =================
 class ParticlePool {
-  constructor() { this.particles = []; this.shockwaves = []; this.maxParticles = 200; }
+  constructor() { this.particles = []; this.maxParticles = 200; }
   spawn(x, y, color, count = 6, speed = 2.5, size = 2.5, life = 0.4) {
     for (let i = 0; i < count; i++) {
       if (this.particles.length >= this.maxParticles) this.particles.shift();
@@ -700,17 +662,10 @@ class ParticlePool {
       this.particles.push({ x, y, vx: Math.cos(angle) * spd, vy: Math.sin(angle) * spd, color, size: size * (0.6 + Math.random() * 0.4), life: 1.0, decay: (1 / life) });
     }
   }
-  spawnShockwave(x, y, color = '#00f0ff', maxRadius = 35) {
-    this.shockwaves.push({ x, y, color, radius: 4, maxRadius, alpha: 1.0 });
-  }
   update(dt) {
     for (let i = this.particles.length - 1; i >= 0; i--) {
       const p = this.particles[i]; p.x += p.vx * dt * 60; p.y += p.vy * dt * 60; p.life -= p.decay * dt;
       if (p.life <= 0) this.particles.splice(i, 1);
-    }
-    for (let i = this.shockwaves.length - 1; i >= 0; i--) {
-      const sw = this.shockwaves[i]; sw.radius += (sw.maxRadius - sw.radius) * 12 * dt; sw.alpha -= 2.5 * dt;
-      if (sw.alpha <= 0) this.shockwaves.splice(i, 1);
     }
   }
   draw(ctx) {
@@ -719,15 +674,11 @@ class ParticlePool {
       ctx.globalAlpha = Math.max(0, p.life); ctx.fillStyle = p.color;
       ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
     }
-    for (const sw of this.shockwaves) {
-      ctx.globalAlpha = Math.max(0, sw.alpha); ctx.strokeStyle = sw.color; ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.arc(sw.x, sw.y, sw.radius, 0, Math.PI * 2); ctx.stroke();
-    }
     ctx.restore();
   }
 }
 
-// ================= GAME ENGINE & ENTITIES =================
+// ================= ENTITIES =================
 class Player {
   constructor() {
     this.x = Arena.x + Arena.width / 2;
@@ -761,17 +712,14 @@ class Player {
 
     this.x = Math.max(Arena.x + this.radius, Math.min(Arena.x + Arena.width - this.radius, this.x));
     this.y = Math.max(Arena.y + this.radius, Math.min(Arena.y + Arena.height - this.radius, this.y));
-
     this.angle = Math.atan2(Input.mouse.y - this.y, Input.mouse.x - this.x);
 
-    // Shield Recharge Logic
     if (this.shieldRechargeDelay > 0) {
       this.shieldRechargeDelay -= dt;
     } else if (this.shield < this.maxShield) {
       this.shield = Math.min(this.maxShield, this.shield + dt * 15);
     }
 
-    // Chrono Matrix Energy Logic
     if (Game.isBulletTime) {
       this.energy = Math.max(0, this.energy - dt * 35);
       if (this.energy <= 0) Game.isBulletTime = false;
@@ -785,7 +733,6 @@ class Player {
     ctx.translate(this.x, this.y);
     ctx.rotate(this.angle);
 
-    // Shield Aura
     if (this.shield > 0) {
       ctx.strokeStyle = '#00ffaa';
       ctx.lineWidth = 2;
@@ -794,7 +741,6 @@ class Player {
       ctx.stroke();
     }
 
-    // Ship Body
     ctx.fillStyle = '#00f0ff';
     ctx.beginPath();
     ctx.moveTo(14, 0);
@@ -898,7 +844,7 @@ class Enemy {
   }
 }
 
-// ================= MAIN GAME CONTROLLER =================
+// ================= GAME CONTROLLER =================
 const Game = {
   particles: new ParticlePool(),
   player: null,
@@ -910,7 +856,6 @@ const Game = {
   wave: 1,
   sectorIndex: 0,
   combo: 1,
-  comboTimer: 0,
   isBulletTime: false,
   highScore: Storage.get('highscore', 0),
 
@@ -941,6 +886,9 @@ const Game = {
 
   spawnWave() {
     this.enemies = [];
+    this.sectorIndex = Math.floor((this.wave - 1) / 5) % SECTORS.length;
+    document.getElementById('sector-hud-label').innerText = `Sector ${this.sectorIndex + 1}`;
+    
     const count = 4 + this.wave * 2;
     for (let i = 0; i < count; i++) {
       const spawnSide = Math.floor(Math.random() * 4);
@@ -1003,6 +951,8 @@ const Game = {
     document.getElementById('btn-play').onclick = () => this.startNewGame();
     document.getElementById('btn-how').onclick = () => document.getElementById('how-modal').classList.remove('hidden');
     document.getElementById('btn-close-how').onclick = () => document.getElementById('how-modal').classList.add('hidden');
+    document.getElementById('btn-hangar').onclick = () => alert("Hangar is currently fully upgraded for this vessel!");
+    document.getElementById('btn-shop').onclick = () => alert("Tech Lab augmentations active from profile data.");
     document.getElementById('btn-resume').onclick = () => this.togglePause();
     document.getElementById('btn-restart-pause').onclick = () => { document.getElementById('pause-modal').classList.add('hidden'); this.startNewGame(); };
     document.getElementById('btn-menu-pause').onclick = () => { document.getElementById('pause-modal').classList.add('hidden'); currentGameState = STATES.MENU; this.updateMenuUI(); document.getElementById('menu-modal').classList.remove('hidden'); document.getElementById('hud').style.display = 'none'; };
@@ -1038,12 +988,10 @@ const Game = {
       if (!this.bullet.active) this.bullet = null;
     }
 
-    // Update Enemies & Check Collisions
     for (let i = this.enemies.length - 1; i >= 0; i--) {
       const e = this.enemies[i];
       e.update(effectiveDt, this.player.x, this.player.y);
 
-      // Player collision
       if (Math.hypot(e.x - this.player.x, e.y - this.player.y) < e.radius + this.player.radius) {
         this.player.takeDamage(20);
         this.particles.spawn(this.player.x, this.player.y, '#ff0055', 12);
@@ -1052,7 +1000,6 @@ const Game = {
         continue;
       }
 
-      // Bullet collision
       if (this.bullet && Math.hypot(e.x - this.bullet.x, e.y - this.bullet.y) < e.radius + this.bullet.radius) {
         e.hp -= 50;
         this.particles.spawn(e.x, e.y, e.color, 8);
@@ -1068,7 +1015,6 @@ const Game = {
       }
     }
 
-    // Check Wave End
     if (this.enemies.length === 0) {
       this.wave++;
       this.spawnWave();
@@ -1100,7 +1046,6 @@ const Game = {
     Ctx.fillStyle = SECTORS[this.sectorIndex].bgGrad;
     Ctx.fillRect(0, 0, ViewWidth, ViewHeight);
 
-    // Arena Boundary
     Ctx.strokeStyle = SECTORS[this.sectorIndex].color;
     Ctx.lineWidth = 2;
     Ctx.strokeRect(Arena.x, Arena.y, Arena.width, Arena.height);
@@ -1125,10 +1070,6 @@ const Game = {
 
 window.onload = () => Game.init();
 </script>
-
-<!-- Adsterra Container & Script (Bottom Placement) -->
-<script async="async" data-cfasync="false" src="https://pl28547402.profitableratecpmnetwork.com/96c0e3d67ffd967d125cf1ceee43420a/invoke.js"></script>
-<div id="container-96c0e3d67ffd967d125cf1ceee43420a"></div>
 
 </body>
 </html>
