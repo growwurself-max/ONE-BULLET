@@ -8,7 +8,7 @@
 <!-- Official CrazyGames SDK v3 -->
 <script src="https://sdk.crazygames.com/crazygames-sdk-v3.js"></script>
 
-<!-- Adsterra Scripts (Script 1 & Script 2) -->
+<!-- Adsterra Popunder / Direct Scripts -->
 <script src="https://pl29195243.profitableratecpmnetwork.com/3a/e5/de/3ae5de541a80eb8cdbe4e7169880083f.js"></script>
 <script src="https://pl29206662.profitableratecpmnetwork.com/1a/e1/35/1ae135a1877c30e4b4958e2e025f82f3.js"></script>
 
@@ -127,7 +127,6 @@
   }
 
   .subtitle { font-size: 11px; color: var(--text-dim); letter-spacing: 2px; margin-bottom: 16px; text-transform: uppercase; }
-
   .btn-group { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
 
   .btn {
@@ -137,13 +136,10 @@
     cursor: pointer; border-radius: 4px; transition: all 0.15s ease;
   }
   .btn:hover { background: var(--primary); color: #000; box-shadow: 0 0 16px var(--primary-glow); transform: translateY(-2px); }
-
   .btn-gold { background: rgba(255, 230, 0, 0.1); border-color: var(--gold); color: var(--gold); }
   .btn-gold:hover { background: var(--gold); color: #000; box-shadow: 0 0 16px var(--gold-glow); }
-
   .btn-purple { background: rgba(191, 0, 255, 0.1); border-color: var(--purple); color: var(--purple); }
   .btn-purple:hover { background: var(--purple); color: #fff; box-shadow: 0 0 16px rgba(191, 0, 255, 0.5); }
-
   .btn-secondary { background: rgba(255, 255, 255, 0.04); border-color: rgba(255, 255, 255, 0.2); color: #cbd5e1; }
   .btn-secondary:hover { background: rgba(255, 255, 255, 0.15); border-color: #fff; color: #fff; }
 
@@ -152,51 +148,28 @@
   .stat-card .label { font-size: 9px; color: var(--text-dim); text-transform: uppercase; }
   .stat-card .val { font-size: 15px; font-weight: bold; color: #fff; font-family: var(--font-mono); }
 
-  /* Hangar Cards */
-  .hangar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 14px 0; }
-  .hangar-card {
-    background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 6px; padding: 12px 8px; text-align: center; cursor: pointer; transition: all 0.2s;
-  }
-  .hangar-card.active { border-color: var(--primary); box-shadow: 0 0 12px var(--primary-glow); background: rgba(0, 240, 255, 0.08); }
-  .hangar-card.locked { opacity: 0.6; }
-  .hangar-card h4 { font-size: 12px; color: #fff; font-family: var(--font-mono); margin-bottom: 4px; }
-  .hangar-card p { font-size: 9px; color: #94a3b8; line-height: 1.3; }
-
-  /* Shop Grid */
-  .shop-grid { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; max-height: 42vh; overflow-y: auto; }
-  .shop-item {
-    background: rgba(0, 240, 255, 0.03); border: 1px solid rgba(0, 240, 255, 0.2);
-    border-radius: 6px; padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; text-align: left;
-  }
-  .shop-info h4 { font-size: 11px; color: var(--primary); font-family: var(--font-mono); }
-  .shop-info p { font-size: 9px; color: #94a3b8; }
-  .tier-dots { display: flex; gap: 3px; margin-top: 3px; }
-  .tier-dot { width: 6px; height: 6px; border-radius: 2px; background: rgba(255, 255, 255, 0.15); }
-  .tier-dot.active { background: var(--gold); box-shadow: 0 0 4px var(--gold-glow); }
-  .shop-buy-btn {
-    background: rgba(255, 230, 0, 0.12); border: 1px solid var(--gold); color: var(--gold);
-    font-family: var(--font-mono); font-size: 10px; font-weight: bold; padding: 5px 10px; border-radius: 4px; cursor: pointer;
-  }
-  .shop-buy-btn.maxed { background: rgba(255, 255, 255, 0.05); border-color: #64748b; color: #64748b; cursor: not-allowed; }
-
   /* Mobile Controls */
   #mobile-controls { position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; pointer-events: none; display: none; z-index: 50; }
-  .touch-zone { position: absolute; bottom: 20px; width: 110px; height: 110px; border-radius: 50%; background: rgba(255, 255, 255, 0.03); border: 2px dashed rgba(0, 240, 255, 0.3); pointer-events: auto; }
+  .touch-zone { position: absolute; bottom: 70px; width: 110px; height: 110px; border-radius: 50%; background: rgba(255, 255, 255, 0.03); border: 2px dashed rgba(0, 240, 255, 0.3); pointer-events: auto; }
   #joystick-zone { left: 20px; }
   #aim-zone { right: 20px; border-color: rgba(255, 0, 85, 0.4); }
   .stick-knob { position: absolute; width: 40px; height: 40px; border-radius: 50%; background: var(--primary); top: 35px; left: 35px; opacity: 0.7; pointer-events: none; }
   .mobile-action-btn { position: absolute; border-radius: 50%; color: #fff; font-family: var(--font-mono); font-weight: bold; display: flex; justify-content: center; align-items: center; pointer-events: auto; }
-  #btn-mobile-shoot { bottom: 145px; right: 25px; width: 70px; height: 70px; background: rgba(0, 240, 255, 0.25); border: 2px solid var(--primary); font-size: 11px; }
-  #btn-mobile-bullet-time { bottom: 145px; left: 25px; width: 60px; height: 60px; background: rgba(112, 0, 255, 0.25); border: 2px solid #7000ff; font-size: 10px; }
+  #btn-mobile-shoot { bottom: 195px; right: 25px; width: 70px; height: 70px; background: rgba(0, 240, 255, 0.25); border: 2px solid var(--primary); font-size: 11px; }
+  #btn-mobile-bullet-time { bottom: 195px; left: 25px; width: 60px; height: 60px; background: rgba(112, 0, 255, 0.25); border: 2px solid #7000ff; font-size: 10px; }
 
-  /* Ad Banner Overlay Positioning */
+  /* Adsterra Native Banner Container Fixed Overlay */
   #ad-banner-placement {
     position: fixed;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 90;
+    min-width: 320px;
+    min-height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
     pointer-events: auto;
   }
 </style>
@@ -246,8 +219,7 @@
     </div>
   </div>
 
-  <!-- Modals -->
-  <!-- Main Menu -->
+  <!-- Main Menu Modal -->
   <div id="menu-modal" class="modal-overlay">
     <div class="modal-content">
       <h1 class="title-glitch">LAST BULLET</h1>
@@ -258,44 +230,21 @@
       </div>
       <div class="btn-group">
         <button class="btn" id="btn-play">INITIATE COMBAT</button>
-        <button class="btn btn-purple" id="btn-hangar">SHIP HANGAR</button>
-        <button class="btn btn-gold" id="btn-shop">TECH LAB (AUGMENTS)</button>
         <button class="btn btn-secondary" id="btn-how">TACTICAL MANUAL</button>
         <button class="btn btn-secondary" id="btn-toggle-audio">AUDIO: <span id="audio-state-text">ON</span></button>
       </div>
     </div>
   </div>
 
-  <!-- Ship Hangar Modal -->
-  <div id="hangar-modal" class="modal-overlay hidden">
-    <div class="modal-content">
-      <h2 style="color:var(--purple); font-family:var(--font-mono); margin-bottom:2px;">SHIP HANGAR</h2>
-      <p class="subtitle">BALANCE: <span id="hangar-credits-display" style="color:var(--gold); font-weight:bold;">0</span> CREDITS</p>
-      <div class="hangar-grid" id="hangar-container"></div>
-      <button class="btn" id="btn-close-hangar" style="margin-top:10px;">RETURN TO TERMINAL</button>
-    </div>
-  </div>
-
-  <!-- Tech Lab Modal -->
-  <div id="shop-modal" class="modal-overlay hidden">
-    <div class="modal-content">
-      <h2 style="color:var(--gold); font-family:var(--font-mono); margin-bottom:2px;">TECH LAB — AUGMENTS</h2>
-      <p class="subtitle">BALANCE: <span id="shop-credits-display" style="color:var(--gold); font-weight:bold;">0</span> CREDITS</p>
-      <div class="shop-grid" id="shop-items-container"></div>
-      <button class="btn" id="btn-close-shop" style="margin-top:10px;">RETURN TO TERMINAL</button>
-    </div>
-  </div>
-
-  <!-- How to Play -->
+  <!-- How to Play Modal -->
   <div id="how-modal" class="modal-overlay hidden">
     <div class="modal-content">
       <h2 style="color:var(--primary); font-family:var(--font-mono); margin-bottom:8px;">TACTICAL MANUAL</h2>
       <div style="text-align:left; font-size:12px; line-height:1.6; color:#a0aec0; margin:10px 0;">
-        <p><strong style="color:var(--primary)">SPACE</strong> — Fire Solitary Ricochet Bullet</p>
-        <p><strong style="color:var(--primary)">WASD / ARROWS</strong> — Move Vessel</p>
+        <p><strong style="color:var(--primary)">SPACE / TAP FIRE</strong> — Fire Ricochet Bullet</p>
+        <p><strong style="color:var(--primary)">WASD / ARROWS / JOYSTICK</strong> — Move Vessel</p>
         <p><strong style="color:var(--primary)">RIGHT CLICK / SHIFT</strong> — Bullet Time (Chrono Matrix)</p>
         <p><strong style="color:var(--primary)">ESC / P</strong> — Tactical Pause</p>
-        <p style="margin-top:6px; color:#fff;">* Every 5 waves transitions to a new Sector Biome with heavier boss threats.</p>
       </div>
       <button class="btn" id="btn-close-how">RETURN TO MENU</button>
     </div>
@@ -325,7 +274,7 @@
         <div class="stat-card"><div class="label">Credits Earned</div><div class="val" id="final-credits-val" style="color:var(--gold);">0</div></div>
       </div>
       <div class="btn-group">
-        <button class="btn btn-gold" id="btn-revive-ad">⚡ WATCH AD TO REVIVE (50% HP + EMP)</button>
+        <button class="btn btn-gold" id="btn-revive-ad">⚡ WATCH AD TO REVIVE (50% HP)</button>
         <button class="btn" id="btn-restart-gameover">RETRY MISSION</button>
         <button class="btn btn-secondary" id="btn-menu-gameover">MAIN TERMINAL</button>
       </div>
@@ -341,18 +290,13 @@
   </div>
 </div>
 
-<!-- Adsterra Container & Script 3 (Banner / Native invoke placement) -->
+<!-- Adsterra Invoke Banner Container -->
 <div id="ad-banner-placement">
   <script async="async" data-cfasync="false" src="https://pl28547402.profitableratecpmnetwork.com/96c0e3d67ffd967d125cf1ceee43420a/invoke.js"></script>
   <div id="container-96c0e3d67ffd967d125cf1ceee43420a"></div>
 </div>
 
 <script>
-/**
- * LAST BULLET: Cyber Arena Edition
- * 60 FPS Locked, Ship Hangar, Sector Themes, Web Audio Synthwave, CrazyGames SDK v3
- */
-
 // ================= CRAZYGAMES SDK =================
 const CG = {
   sdk: null, isAvailable: false,
@@ -372,7 +316,6 @@ const CG = {
   gameplayStop() { if (this.isAvailable) try { this.sdk.game.gameplayStop(); } catch(e){} },
   async requestRewarded(onSuccess, onFail) {
     if (!this.isAvailable) { onSuccess(); return; }
-    Audio.pauseBGM();
     try {
       await this.sdk.ad.requestAd('rewarded', {
         adStarted: () => Audio.pauseBGM(),
@@ -487,15 +430,13 @@ class SynthwaveAudioEngine {
   playEnemyHit() { this.playTone(300, 'triangle', 0.06, 80, 0.3); }
   playEnemyExplode() { this.playTone(160, 'square', 0.22, 25, 0.45); }
   playPlayerHit() { this.playTone(140, 'sawtooth', 0.3, 40, 0.6); }
-  playBulletTime() { this.playTone(220, 'sine', 0.35, 60, 0.3); }
   playShieldActivated() { this.playTone(340, 'sine', 0.12, 680, 0.35); }
   playShieldBroken() { this.playTone(550, 'sawtooth', 0.18, 60, 0.45); }
-  playPowerup() { this.playTone(523, 'sine', 0.1, 1046, 0.35); }
 }
 
 const Audio = new SynthwaveAudioEngine();
 
-// ================= STORAGE & META ECONOMY =================
+// ================= STORAGE =================
 const Storage = {
   get(key, defaultVal) {
     try { const v = localStorage.getItem('lastbullet_' + key); return v !== null ? JSON.parse(v) : defaultVal; } catch(e) { return defaultVal; }
@@ -505,38 +446,13 @@ const Storage = {
   }
 };
 
-const MetaShop = {
-  credits: Storage.get('credits', 0),
-  upgrades: Storage.get('meta_upgrades', { hull: 0, chrono: 0, shield: 0, kinetic: 0 }),
-  costs: [100, 250, 500, 1000, 2000],
-  
-  save() {
-    Storage.set('credits', this.credits);
-    Storage.set('meta_upgrades', this.upgrades);
-  },
-
-  buy(track) {
-    const tier = this.upgrades[track];
-    if (tier >= 5) return false;
-    const cost = this.costs[tier];
-    if (this.credits >= cost) {
-      this.credits -= cost;
-      this.upgrades[track]++;
-      this.save();
-      Audio.playPowerup();
-      return true;
-    }
-    return false;
-  }
-};
-
 const SECTORS = [
   { name: 'CYBER HANGAR', color: '#00f0ff', bgGrad: '#0a111e' },
   { name: 'CRIMSON FOUNDRY', color: '#ff3300', bgGrad: '#1a0808' },
   { name: 'VOID MATRIX', color: '#bf00ff', bgGrad: '#12051c' }
 ];
 
-// ================= VIEWPORT AUTO-RESIZING =================
+// ================= CANVAS & VIEWPORT =================
 const Canvas = document.getElementById('gameCanvas');
 const Ctx = Canvas.getContext('2d', { alpha: false });
 
@@ -557,7 +473,7 @@ function resizeCanvas() {
   const padY = Math.max(20, ViewHeight * 0.04);
   Arena.x = padX; Arena.y = padY;
   Arena.width = ViewWidth - padX * 2;
-  Arena.height = ViewHeight - padY * 2;
+  Arena.height = ViewHeight - padY * 2 - 50; /* Leave bottom room for banner */
 }
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
@@ -653,7 +569,7 @@ const Input = {
 
 // ================= PARTICLES =================
 class ParticlePool {
-  constructor() { this.particles = []; this.maxParticles = 200; }
+  constructor() { this.particles = []; this.maxParticles = 150; }
   spawn(x, y, color, count = 6, speed = 2.5, size = 2.5, life = 0.4) {
     for (let i = 0; i < count; i++) {
       if (this.particles.length >= this.maxParticles) this.particles.shift();
@@ -684,11 +600,11 @@ class Player {
     this.x = Arena.x + Arena.width / 2;
     this.y = Arena.y + Arena.height / 2;
     this.radius = 12;
-    this.maxHealth = 100 + MetaShop.upgrades.hull * 15;
+    this.maxHealth = 100;
     this.health = this.maxHealth;
-    this.maxEnergy = 100 + MetaShop.upgrades.chrono * 15;
+    this.maxEnergy = 100;
     this.energy = this.maxEnergy;
-    this.maxShield = 50 + MetaShop.upgrades.shield * 15;
+    this.maxShield = 50;
     this.shield = this.maxShield;
     this.shieldRechargeDelay = 0;
     this.speed = 260;
@@ -774,7 +690,7 @@ class SolitaryBullet {
   constructor(x, y, targetX, targetY) {
     this.x = x; this.y = y;
     const angle = Math.atan2(targetY - y, targetX - x);
-    this.speed = 700 + MetaShop.upgrades.kinetic * 50;
+    this.speed = 700;
     this.vx = Math.cos(angle) * this.speed;
     this.vy = Math.sin(angle) * this.speed;
     this.radius = 5;
@@ -821,9 +737,8 @@ class Enemy {
   constructor(x, y, type = 'BASIC') {
     this.x = x; this.y = y;
     this.type = type;
-    this.radius = type === 'BOSS' ? 30 : 12;
+    this.radius = type === 'BOSS' ? 28 : 12;
     this.hp = type === 'BOSS' ? 150 : 20;
-    this.maxHp = this.hp;
     this.speed = type === 'BOSS' ? 60 : 120;
     this.color = type === 'BOSS' ? '#ff0055' : '#bf00ff';
   }
@@ -920,8 +835,8 @@ const Game = {
       this.highScore = this.score;
       Storage.set('highscore', this.highScore);
     }
-    MetaShop.credits += this.creditsEarned;
-    MetaShop.save();
+    const curCredits = Storage.get('credits', 0);
+    Storage.set('credits', curCredits + this.creditsEarned);
 
     document.getElementById('final-score-val').innerText = this.score;
     document.getElementById('final-wave-val').innerText = this.wave;
@@ -944,15 +859,13 @@ const Game = {
 
   updateMenuUI() {
     document.getElementById('high-score-val').innerText = this.highScore;
-    document.getElementById('menu-credits-val').innerText = MetaShop.credits;
+    document.getElementById('menu-credits-val').innerText = Storage.get('credits', 0);
   },
 
   bindUI() {
     document.getElementById('btn-play').onclick = () => this.startNewGame();
     document.getElementById('btn-how').onclick = () => document.getElementById('how-modal').classList.remove('hidden');
     document.getElementById('btn-close-how').onclick = () => document.getElementById('how-modal').classList.add('hidden');
-    document.getElementById('btn-hangar').onclick = () => alert("Hangar is currently fully upgraded for this vessel!");
-    document.getElementById('btn-shop').onclick = () => alert("Tech Lab augmentations active from profile data.");
     document.getElementById('btn-resume').onclick = () => this.togglePause();
     document.getElementById('btn-restart-pause').onclick = () => { document.getElementById('pause-modal').classList.add('hidden'); this.startNewGame(); };
     document.getElementById('btn-menu-pause').onclick = () => { document.getElementById('pause-modal').classList.add('hidden'); currentGameState = STATES.MENU; this.updateMenuUI(); document.getElementById('menu-modal').classList.remove('hidden'); document.getElementById('hud').style.display = 'none'; };
